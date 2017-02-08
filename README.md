@@ -1,5 +1,8 @@
 #Simple Build - ES6 + SCSS
 
+
+#Assignment-18
+
 Lightweight scaffolding and build tool to quickly and easily integrate a ES6 and SCSS.
 
   - transpiles scss into css
@@ -22,5 +25,3 @@ Lightweight scaffolding and build tool to quickly and easily integrate a ES6 and
 
 ##Publishing
   - add, commit and push per usual
-
-  
