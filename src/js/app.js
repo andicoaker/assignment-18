@@ -55,13 +55,119 @@
 // }
 
 var pageContentObj = {
-  home:
+  home:`
+  <div class="panel panel-default homeContent">
+    <div class="panel-heading">
+      THE BASIC FACTS
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>Native Name</td>
+          <td>Island</td>
+        </tr>
+        <tr>
+          <td>Demonym</td>
+          <td>Icelander</td>
+        </tr>
+        <tr>
+          <td>Area (m2)</td>
+          <td>103000</td>
+        </tr>
+        <tr>
+          <td>Calling Code</td>
+          <td>352</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  `,
 
-  concerts:
+  concerts:`
+    <h2>TEST 3</h2>
+    `,
 
-  carpools:
+  carpools:`
+  <div class="panel panel-default carpoolsContent">
+    <div class="panel-heading">
+      CARPOOLS
+    </div>
+    <table class="table">
+      <thead>
+        <th>Time of Departure</th>
+        <th>From</th>
+        <th>To</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>TIME</td>
+          <td>From Location</td>
+          <td>To Location</td>
+        </tr>
+        <tr>
+          <td>TIME</td>
+          <td>From Location</td>
+          <td>To Location</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>  `,
 
-  flights:
+  flights:`
+  <div class="panel panel-default flightsContent">
+    <div class="panel-heading">
+      Arrivals
+    </div>
+    <table class="table">
+      <thead>
+        <th>Date</th>
+        <th>Arrival Time</th>
+        <th>Origin</th>
+        <th>Airline</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Date</td>
+          <td>Time</td>
+          <td>Origin</td>
+          <td>Airline</td>
+        </tr>
+        <tr>
+        <td>Date</td>
+        <td>Time</td>
+        <td>Origin</td>
+        <td>Airline</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel panel-default flightsContent">
+    <div class="panel-heading">
+      Departures
+    </div>
+    <table class="table">
+      <thead>
+        <th>Date</th>
+        <th>Arrival Time</th>
+        <th>Origin</th>
+        <th>Airline</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Date</td>
+          <td>Time</td>
+          <td>Origin</td>
+          <td>Airline</td>
+        </tr>
+        <tr>
+        <td>Date</td>
+        <td>Time</td>
+        <td>Origin</td>
+        <td>Airline</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>`
 
 }
 
@@ -76,6 +182,7 @@ function renderActiveTab(theCurrentRoute){
 	var currentActiveTabEl = document.querySelector(`[data-route="${theCurrentRoute}"]`)
 	currentActiveTabEl.classList.add('active')
 }
+
 
 function renderContentTo(domEl, theRoute, theContent){
 
@@ -103,7 +210,6 @@ tabsContainerEl.addEventListener('click', function(evt){
 	var route = clickedTabEl.dataset.route
 	window.location.hash = route
 })
-
 
 controllerRouter()
 window.addEventListener('hashchange', controllerRouter)
