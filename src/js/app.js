@@ -88,7 +88,7 @@ var pageContentObj = {
     `,
 
   carpools:`
-  <div class="panel panel-default carpoolsContent">
+  <div class="panel panel-default carpools-content">
     <div class="panel-heading">
       CARPOOLS
     </div>
@@ -114,68 +114,79 @@ var pageContentObj = {
   </div>  `,
 
   flights:`
-  <div class="panel panel-default flightsContent">
-    <div class="panel-heading">
-      Arrivals
+  <div class='container-fluid flights-container'>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        Flights
+      </div>
     </div>
-    <table class="table">
-      <thead>
-        <th>Date</th>
-        <th>Arrival Time</th>
-        <th>Origin</th>
-        <th>Airline</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Date</td>
-          <td>Time</td>
-          <td>Origin</td>
-          <td>Airline</td>
-        </tr>
-        <tr>
-        <td>Date</td>
-        <td>Time</td>
-        <td>Origin</td>
-        <td>Airline</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class='row'>
+      <div class="col-md-6 flights-columns">
+        <div class="panel panel-default flights-content">
+          <div class="panel-heading flights-panel-heading">
+            Arrivals
+          </div>
+          <table class="table">
+            <thead>
+              <th>Date</th>
+              <th>Arrival Time</th>
+              <th>Origin</th>
+              <th>Airline</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Date</td>
+                <td>Time</td>
+                <td>Origin</td>
+                <td>Airline</td>
+              </tr>
+              <tr>
+              <td>Date</td>
+              <td>Time</td>
+              <td>Origin</td>
+              <td>Airline</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel panel-default flightsContent">
+          <div class="panel-heading">
+            Departures
+          </div>
+          <table class="table">
+            <thead>
+              <th>Date</th>
+              <th>Arrival Time</th>
+              <th>Origin</th>
+              <th>Airline</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Date</td>
+                <td>Time</td>
+                <td>Origin</td>
+                <td>Airline</td>
+              </tr>
+              <tr>
+              <td>Date</td>
+              <td>Time</td>
+              <td>Origin</td>
+              <td>Airline</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="panel panel-default flightsContent">
-    <div class="panel-heading">
-      Departures
-    </div>
-    <table class="table">
-      <thead>
-        <th>Date</th>
-        <th>Arrival Time</th>
-        <th>Origin</th>
-        <th>Airline</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Date</td>
-          <td>Time</td>
-          <td>Origin</td>
-          <td>Airline</td>
-        </tr>
-        <tr>
-        <td>Date</td>
-        <td>Time</td>
-        <td>Origin</td>
-        <td>Airline</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>`
-
+  `
 }
 
 
 var tabsContainerEl = document.querySelector('.tabcontent__list')
 
 function renderActiveTab(theCurrentRoute){
-	// var previousActiveTabEl = document.querySelector('.tabcontent__tab.active')
+
 	var previousActiveTabEl = document.querySelector('[class="tabcontent__tab active"]')
 	previousActiveTabEl.classList.remove('active')
 
@@ -186,10 +197,19 @@ function renderActiveTab(theCurrentRoute){
 
 function renderContentTo(domEl, theRoute, theContent){
 
-	if( theRoute === 'home' ){  return domEl.innerHTML = theContent[theRoute] }
-	if( theRoute === 'concerts' ){  return domEl.innerHTML = theContent[theRoute] }
-	if( theRoute === 'carpools' ){ return  domEl.innerHTML = theContent[theRoute] }
-	if( theRoute === 'flights' ){  return domEl.innerHTML = theContent[theRoute] }
+	if( theRoute === 'home' ){  return domEl.innerHTML = theContent[theRoute]
+
+  }
+	if( theRoute === 'concerts' ){  return domEl.innerHTML = theContent[theRoute]
+
+  }
+	if( theRoute === 'carpools' ){
+    return  domEl.innerHTML = theContent[theRoute]
+
+  }
+	if( theRoute === 'flights' ){  return domEl.innerHTML = theContent[theRoute]
+
+  }
 
 	domEl.innerHTML = theContent.home
 	window.location.hash = ''

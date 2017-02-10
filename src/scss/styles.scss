@@ -12,31 +12,54 @@ h1 {
 	font-size: 50px;
 	text-align: center;
 	color: chartreuse;
+	background-color: black;
+	// position: fixed;
+	// top: 0;
 	// font-size: 12vw;
 }
 
 .tabcontent__list{
-	margin-left: 20px;
+	margin-left: 50px;
+	margin-right: 50px;
 	width: 100%;
 
 }
 
 .tabcontent__tab {
-    width: 24%;
-    display: inline-block;
-    vertical-align: top;
-    font-size: medium;
-    text-align: center;
-    padding: 30px 0;
-    color: #black;
-    background: #d3d3d3;
-    cursor: pointer;
-		// margin-left: 5px;
-		// margin-right: 5px;
+  width: 22.75%;
+  display: inline-block;
+  vertical-align: top;
+  font-size: medium;
+  text-align: center;
+  padding: 15px 0;
+  color: #black;
+  background: #d3d3d3;
+  cursor: pointer;
 
 }
 
-.panel-heading{
-	background-color: pink;
+.page_content{
+	margin-left: 50px;
+	margin-right: 50px;
+	border-right: solid black 3px;
+	border-left: solid black 3px;
+
+}
+
+.flights-container{
+	padding: 0px;
+
+}
+
+.panel{
+	margin-bottom: 0px;
+}
+
+.flights-panel-heading{
+	background-color: red;
+}
+
+.flights-columns{
+	// padding: 0px;
 
 }
