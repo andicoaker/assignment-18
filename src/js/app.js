@@ -1,58 +1,37 @@
-// import $ from 'jquery';
+import $ from 'jquery';
 
-// var forEach = function(arr, cb){
-// 	for(var i = 0; i < arr.length; i++){
-// 		cb(arr[i], i, arr)
-// 	}
-// }
-//
-// function controllerRouter (){
-//   var currentRoute = window.location.hash.slice(1)
-//
-//   if (currentRoute === 'concerts') {
-//     $.getJSON('http://apis.is/concerts').then(function(serverRes){
-//     console.log(serverRes);
-//
-//       var htmlTemplate = createIcelandPageTemplate( serverRes.results, "Concerts" )
-//       appContainerEl.innerHTML = htmlTemplate
-//
-//     })
-//     return
-//   }
+var fetchConcertsPromise = $.getJSON('http://apis.is/concerts').then(function(serverRes){
+  console.log(serverRes);
+})
 
-  // if (currentRoute === 'carpools') {
-  //   $.getJSON('http://apis.is/rides/samferda-drivers/').then(function(serverRes){
-  //     console.log(serverRes);
-  //
-  //     var htmlTemplate = createIcelandPageTemplate( serverRes.results, "Carpools" )
-  //     appContainerEl.innerHTML = htmlTemplate
-  //
-  //   })
-  //   return
-  // }
-  //
-  // if (currentRoute === 'flights') {
-  //   $.getJSON('http://apis.is/flight?language=en&type=departures').then(function(serverRes){
-  //     console.log(serverRes);
-  //
-  //     var htmlTemplate = createIcelandPageTemplate( serverRes.results, "Flights" )
-//       appContainerEl.innerHTML = htmlTemplate
-//
-//     })
-//     return
-//   }
-//
-//   if (true) {
-//     $.getJSON('http://apis.is/flight?language=en&type=arrivals').then(function(serverRes){
-//       console.log(serverRes);
-//
-//       var htmlTemplate = createIcelandPageTemplate( serverRes.results, "Flights" )
-//       appContainerEl.innerHTML = htmlTemplate
-//
-//     })
-//     return
-//   }
-// }
+var fectchCarpoolsPromise = $.getJSON('http://apis.is/rides/samferda-drivers/').then(function(serverRes){
+  console.log(serverRes);
+
+})
+
+var fetchFlightsDeparturesPromise =  $.getJSON('http://apis.is/flight?language=en&type=departures').then(function(serverRes){
+  console.log(serverRes);
+})
+
+var fetchFligthsArrivalsPromise = $.getJSON('http://apis.is/flight?language=en&type=arrivals').then(function(serverRes){
+  console.log(serverRes);
+})
+
+
+
+function buildPageTemplate(pageContentApiData){
+		var PageObj = pageContentApiData.results[0]
+    console.log(PageObj);
+
+		// var committeeList =  committeeApiData.results
+		// var createCommitteeHtmlComponents = committeeList.map(function(committeeObj){
+		// 	return `
+		// 		<div class='committee'>
+		// 		  <h4>${committeeObj.name}</h4>
+		// 		  <p>Chamber: ${committeeObj.chamber}</h4>
+		// 		</div>
+		// 	`
+}
 
 var pageContentObj = {
   home:`
@@ -181,6 +160,8 @@ var pageContentObj = {
   </div>
   `
 }
+
+
 
 
 var tabsContainerEl = document.querySelector('.tabcontent__list')
