@@ -6,7 +6,6 @@ var fetchConcertsPromise = $.getJSON('http://apis.is/concerts').then(function(se
 
 var fectchCarpoolsPromise = $.getJSON('http://apis.is/rides/samferda-drivers/').then(function(serverRes){
   console.log(serverRes);
-
 })
 
 var fetchFlightsDeparturesPromise =  $.getJSON('http://apis.is/flight?language=en&type=departures').then(function(serverRes){
@@ -63,8 +62,24 @@ var pageContentObj = {
   `,
 
   concerts:`
-    <h2>TEST 3</h2>
-    `,
+  <div>
+    <panel>
+      Concerts
+    </panel>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="thumbnail">
+          <img src="Insert image URL here">
+          <div class="caption">
+            <h3>name</h3>
+            <p><mark>Venu: </mark><strong>eventHallName</strong></p>
+            <p class="text-right">dateOfShow</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  `,
 
   carpools:`
   <div class="panel panel-default carpools-content">
@@ -90,7 +105,8 @@ var pageContentObj = {
         </tr>
       </tbody>
     </table>
-  </div>  `,
+  </div>
+  `,
 
   flights:`
   <div class='container-fluid flights-container'>
@@ -135,21 +151,21 @@ var pageContentObj = {
           <table class="table">
             <thead>
               <th>Date</th>
-              <th>Arrival Time</th>
-              <th>Origin</th>
+              <th>Departure Time</th>
+              <th>Destination</th>
               <th>Airline</th>
             </thead>
             <tbody>
               <tr>
                 <td>Date</td>
-                <td>Time</td>
-                <td>Origin</td>
+                <td>Departure Time</td>
+                <td>Destination</td>
                 <td>Airline</td>
               </tr>
               <tr>
               <td>Date</td>
-              <td>Time</td>
-              <td>Origin</td>
+              <td>Departure Time</td>
+              <td>Destination</td>
               <td>Airline</td>
               </tr>
             </tbody>
