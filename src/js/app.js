@@ -1,22 +1,28 @@
 import $ from 'jquery';
 
+function forEach(arr, cb){
+  for (var i = 0; i < arr.length; i++) {
+    cb(arr[i], i, arr)
+  }
 
-var fetchConcertsPromise =
-  $.getJSON('http://apis.is/concerts').then(function(serverRes){
-    console.log(serverRes);
-})
-
-var fectchCarpoolsPromise = $.getJSON('http://apis.is/rides/samferda-drivers/').then(function(serverRes){
-  console.log(serverRes);
-})
-
-var fetchFlightsDeparturesPromise =  $.getJSON('http://apis.is/flight?language=en&type=departures').then(function(serverRes){
-  console.log(serverRes);
-})
-
-var fetchFligthsArrivalsPromise = $.getJSON('http://apis.is/flight?language=en&type=arrivals').then(function(serverRes){
-  console.log(serverRes);
-})
+}
+//
+// var fetchConcertsPromise =
+//   $.getJSON('http://apis.is/concerts').then(function(serverRes){
+//     console.log(serverRes);
+// })
+//
+// var fectchCarpoolsPromise = $.getJSON('http://apis.is/rides/samferda-drivers/').then(function(serverRes){
+//   console.log(serverRes);
+// })
+//
+// var fetchFlightsDeparturesPromise =  $.getJSON('http://apis.is/flight?language=en&type=departures').then(function(serverRes){
+//   console.log(serverRes);
+// })
+//
+// var fetchFligthsArrivalsPromise = $.getJSON('http://apis.is/flight?language=en&type=arrivals').then(function(serverRes){
+//   console.log(serverRes);
+// })
 
 var tabsContainerEl = document.querySelector('.tabcontent__list')
 
@@ -31,13 +37,12 @@ function renderActiveTab(theCurrentRoute){
 
 
 
-function renderContentTo(domEl, theRoute, theContent){
+function renderContentTo(domEl, theRoute){
   var allContent = ''
-  // getting log error throughout JS that allContent is not defined
 
 	if( theRoute === 'home' ){
-    allContent += `
-    <div class="panel panel-default homeContent">
+    allContent =`
+    <div class="panel panel-default home-content">
       <div class="panel-heading">
         THE BASIC FACTS
       </div>
@@ -62,87 +67,75 @@ function renderContentTo(domEl, theRoute, theContent){
         </tbody>
       </table>
     </div>`
-    // return domEl.innerHTML = theContent[theRoute]
   }
 
 
 	if( theRoute === 'concerts' ){
-      // allContent += "<div>"
-      //   serverRes.results.forEach(function(obj, i) {
-      //     allContent += `
-      //     <h1>${obj.name}</h1>
-      //     `
-      //   })
-      //   allContent += `</div>`
-      //   domEl.innerHTML = allContent
 
-    allContent = `
+    allContent += `
       <div class="panel panel-default">
         <div class="panel-body">
-          Flights
+          Concerts
         </div>
-        <div class="row">
-          <div class="col-md-4">`
+        <div class="row">`
 
     $.getJSON('http://apis.is/concerts').then(function(serverRes){
 
-      forEach(arrivals, function(allContent){
+      forEach(serverRes.results, function(pageContentObj){
         allContent +=`
-          <div class="thumbnail">
-            <img src="${pageContentObj.imageSource}>
-            <div class="caption">
-              <h3>${pageContentObj.name}</h3>
-              <p><mark>Venu: </mark><strong>${pageContentObj.eventHallName}</strong></p>
-              <p class="text-right">${pageContentObj.dateOfShow}</p>
+          <div class="col-sm-3">
+            <div class="thumbnail">
+              <img src="${pageContentObj.imageSource}">
+              <div class="caption">
+                <h4>${pageContentObj.name}</h4>
+                <p><mark>Venu: </mark><strong>${pageContentObj.eventHallName}</strong></p>
+                <p class="text-right">${pageContentObj.dateOfShow}</p>
+              </div>
             </div>
           </div>`
       })
       allContent += `
-      </div>
-      </div>
+        </div>
       </div>`
+      domEl.innerHTML = allContent
     })
-    domEl.innerHTML = theContent[theRoute]
   }
 
 
-	if( theRoute === 'carpools' ){  //return domEl.innerHTML = theContent[theRoute]
+	if( theRoute === 'carpools' ){
 
-    allContent += `
-    <div class=row>
-      <div class='flights-columns'>
-
-      <div class="panel panel-default carpools-content">
-        <div class="panel-heading">
-          CARPOOLS
-        </div>
-        <table class="table">
-          <thead>
-            <th>Time of Departure</th>
-            <th>From</th>
-            <th>To</th>
-          </thead>
-          <tbody>`
+      allContent += `
+        <div class=row>
+          <div class="panel panel-default carpools-content">
+            <div class="panel-heading">
+              CARPOOLS
+            </div>
+            <table class="table">
+              <thead>
+                <th>Time of Departure</th>
+                <th>From</th>
+                <th>To</th>
+              </thead>`
 
     var fectchCarpoolsPromise = $.getJSON('http://apis.is/rides/samferda-drivers/').then(function(serverRes){
       console.log(serverRes);
 
-      forEach(arrivals, function(allContent){
-        allContent += `
-            <tr>
-              <td>${pageContentObj.date}</td>
-              <td>${pageContentObj.from}</td>
-              <td>${pageContentObj.to}</td>
-            </tr>`
-      })
+      forEach(serverRes.results, function(pageContentObj){
       allContent += `
-      </tbody>
-      </table>
-      </div>
-      </div>
-      </div>`
+                <tbody>
+                  <tr>
+                    <td>${pageContentObj.date}</td>
+                    <td>${pageContentObj.from}</td>
+                    <td>${pageContentObj.to}</td>
+                  </tr>
+                </tbody>`
+      })
+        allContent += `
+            </table>
+          </div>
+        </div>`
+      domEl.innerHTML = allContent
     })
-    domEl.innerHTML = theContent[theRoute]
   }
 
 
@@ -160,59 +153,80 @@ function renderContentTo(domEl, theRoute, theContent){
             <div class="panel-heading flights-panel-heading">
               Arrivals
             </div>
-            <tbody>`
+            <table class="table">
+              <thead>
+                <th>Date</th>
+                <th>Arrival Time</th>
+                <th>Origin</th>
+                <th>Airline</th>
+              </thead>`
     // GETJSON( FOR ARRIVALS
     var fetchFligthsArrivalsPromise = $.getJSON('http://apis.is/flight?language=en&type=arrivals').then(function(serverRes){
       console.log(serverRes);
 
-      forEach(arrivals, function(allContent){
+      forEach(serverRes.results, function(pageContentObj){
         allContent += `
-          <tr>
-            <td>${pageContentObj.date}</td>
-            <td>${pageContentObj.plannedArrival}</td>
-            <td>${pageContentObj.from}</td>
-            <td>${pageContentObj.airline}</td>
-          </tr>`
+            <tbody>
+              <tr>
+                <td>${pageContentObj.date}</td>
+                <td>${pageContentObj.plannedArrival}</td>
+                <td>${pageContentObj.from}</td>
+                <td>${pageContentObj.airline}</td>
+              </tr>
+            </tbody>`
       })
       // flightTemp += close container divs FOR ARRIVALS
       allContent += `
-        </tbody>
-        </div>
-        </div>
-        </div>
-        </div>
-      `
+            </table>
+            </div>
+          </div>
+        </div>`
+      domEl.innerHTML = allContent
       // END GETJSON
     })
-    domEl.innerHTML = theContent[theRoute]
+    
 
     // GETJSON FOR DEPARTURES
+    allContent +=`
+      <div class='row'>
+        <div class="col-md-6 flights-columns">
+          <div class="panel panel-default flights-content">
+            <div class="panel-heading flights-panel-heading">
+              Departures
+            </div>
+            <table class="table">
+              <thead>
+                <th>Date</th>
+                <th>Departure Time</th>
+                <th>Destination</th>
+                <th>Airline</th>
+              </thead>`
+
     var fetchFlightsDeparturesPromise =  $.getJSON('http://apis.is/flight?language=en&type=departures').then(function(serverRes){
       console.log(serverRes);
 
-      forEach(departures, function(allContent){
+      forEach(serverRes.results, function(pageContentObj){
         allContent += `
-          <tr>
-           <td>${pageContentObj.date}</td>
-           <td>${pageContentObj.plannedArrival}</td>
-           <td>${pageContentObj.to}</td>
-           <td>${pageContentObj.airline}</td>
-          </tr>`
+              <tbody>
+                <tr>
+                 <td>${pageContentObj.date}</td>
+                 <td>${pageContentObj.plannedArrival}</td>
+                 <td>${pageContentObj.to}</td>
+                 <td>${pageContentObj.airline}</td>
+                </tr>
+              </body>`
           // flightTemp += close container divs FOR ALL
       })
       allContent += `
-        </tbody>
+            </table>
+            </div>
+          </div>
         </div>
-        </div>
-        </div>
-        </div>
-      `
+      </div>`
+      domEl.innerHTML = allContent
     })
-    domEl.innerHTML = theContent[theRoute]
   }
-  //
-	// domEl.innerHTML = theContent.home
-	// window.location.hash = ''
+
 }
 
 var controllerRouter = function(){
@@ -221,11 +235,11 @@ var controllerRouter = function(){
 
 	var pageContentEl = document.querySelector('.page_content')
 	renderActiveTab(currentRoute)
-	renderContentTo(pageContentEl, currentRoute, allContent)
+	renderContentTo(pageContentEl, currentRoute)
 }
 
 tabsContainerEl.addEventListener('click', function(evt){
-	var clickedTabEl = evt.target
+  var clickedTabEl = evt.target
 	var route = clickedTabEl.dataset.route
 	window.location.hash = route
 })
