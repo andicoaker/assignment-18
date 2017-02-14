@@ -18,90 +18,6 @@ var fetchFligthsArrivalsPromise = $.getJSON('http://apis.is/flight?language=en&t
   console.log(serverRes);
 })
 
-
-var pageContentObj = {
-  // home:`
-  // <div class="panel panel-default homeContent">
-  //   <div class="panel-heading">
-  //     THE BASIC FACTS
-  //   </div>
-  //   <table class="table">
-  //     <tbody>
-  //       <tr>
-  //         <td>Native Name</td>
-  //         <td>Island</td>
-  //       </tr>
-  //       <tr>
-  //         <td>Demonym</td>
-  //         <td>Icelander</td>
-  //       </tr>
-  //       <tr>
-  //         <td>Area (m2)</td>
-  //         <td>103000</td>
-  //       </tr>
-  //       <tr>
-  //         <td>Calling Code</td>
-  //         <td>352</td>
-  //       </tr>
-  //     </tbody>
-  //   </table>
-  // </div>
-  // `,
-
-  // concerts:`
-  // <div class="panel panel-default">
-  //   <div class="panel-body">
-  //     Concerts
-  //   </div>
-  // </div>
-  // <div class="row">
-  //   <div class="col-md-4">
-  //     <div class="thumbnail">
-  //       <img src="${pageContentObj.imageSource}>
-  //       <div class="caption">
-  //         <h3>${pageContentObj.name}</h3>
-  //         <p><mark>Venu: </mark><strong>${pageContentObj.eventHallName}</strong></p>
-  //         <p class="text-right">${pageContentObj.dateOfShow}</p>
-  //       </div>
-  //     </div>
-  //   </div>
-  // </div>
-  // `,
-
-  // carpools:`
-  // <div class="panel panel-default carpools-content">
-  //   <div class="panel-heading">
-  //     CARPOOLS
-  //   </div>
-  //   <table class="table">
-  //     <thead>
-  //       <th>Time of Departure</th>
-  //       <th>From</th>
-  //       <th>To</th>
-  //     </thead>
-  //     <tbody>
-  //       <tr>
-  //         <td>TIME</td>
-  //         <td>From Location</td>
-  //         <td>To Location</td>
-  //       </tr>
-  //       <tr>
-  //         <td>TIME</td>
-  //         <td>From Location</td>
-  //         <td>To Location</td>
-  //       </tr>
-  //     </tbody>
-  //   </table>
-  // </div>
-  // `,
-
-
-}
-
-
-
-
-
 var tabsContainerEl = document.querySelector('.tabcontent__list')
 
 function renderActiveTab(theCurrentRoute){
@@ -117,79 +33,84 @@ function renderActiveTab(theCurrentRoute){
 
 function renderContentTo(domEl, theRoute, theContent){
   var allContent = ''
+  // getting log error throughout JS that allContent is not defined
 
-	// if( theRoute === 'home' ){
-    //
-    // `<div class="panel panel-default homeContent">
-    //   <div class="panel-heading">
-    //     THE BASIC FACTS
-    //   </div>
-    //   <table class="table">
-    //     <tbody>
-    //       <tr>
-    //         <td>Native Name</td>
-    //         <td>Island</td>
-    //       </tr>
-    //       <tr>
-    //         <td>Demonym</td>
-    //         <td>Icelander</td>
-    //       </tr>
-    //       <tr>
-    //         <td>Area (m2)</td>
-    //         <td>103000</td>
-    //       </tr>
-    //       <tr>
-    //         <td>Calling Code</td>
-    //         <td>352</td>
-    //       </tr>
-    //     </tbody>
-    //   </table>
-    // </div>`
-  //
-  //   return domEl.innerHTML = theContent[theRoute]
-  // }
+	if( theRoute === 'home' ){
+    allContent += `
+    <div class="panel panel-default homeContent">
+      <div class="panel-heading">
+        THE BASIC FACTS
+      </div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>Native Name</td>
+            <td>Island</td>
+          </tr>
+          <tr>
+            <td>Demonym</td>
+            <td>Icelander</td>
+          </tr>
+          <tr>
+            <td>Area (m2)</td>
+            <td>103000</td>
+          </tr>
+          <tr>
+            <td>Calling Code</td>
+            <td>352</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>`
+    // return domEl.innerHTML = theContent[theRoute]
+  }
 
 
-  //
-	// if( theRoute === 'concerts' ){
-  //   $.getJSON('http://apis.is/concerts').then(function(serverRes){
-  //     allContent += "<div>"
-  //     serverRes.results.forEach(function(obj, i){
-  //       allContent += `
-  //       <h1>${obj.name}</h1>
-  //       `
-  //     })
-  //     allContent += `</div>`
-  //     domEl.innerHTML = allContent
-  //
-  //   })`
-  //   <div class="panel panel-default">
-  //     <div class="panel-body">
-  //       Flights
-  //     </div>
-  //   </div>
-  //   <div class="row">
-  //     <div class="col-md-4">
-  //       <div class="thumbnail">
-          // <img src="${pageContentObj.imageSource}>
-          // <div class="caption">
-          //   <h3>${pageContentObj.name}</h3>
-          //   <p><mark>Venu: </mark><strong>${pageContentObj.eventHallName}</strong></p>
-          //   <p class="text-right">${pageContentObj.dateOfShow}</p>
-          // </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  //   `,
-  //
-  // }
+	if( theRoute === 'concerts' ){
+      // allContent += "<div>"
+      //   serverRes.results.forEach(function(obj, i) {
+      //     allContent += `
+      //     <h1>${obj.name}</h1>
+      //     `
+      //   })
+      //   allContent += `</div>`
+      //   domEl.innerHTML = allContent
+
+    allContent = `
+      <div class="panel panel-default">
+        <div class="panel-body">
+          Flights
+        </div>
+        <div class="row">
+          <div class="col-md-4">`
+
+    $.getJSON('http://apis.is/concerts').then(function(serverRes){
+
+      forEach(arrivals, function(allContent){
+        allContent +=`
+          <div class="thumbnail">
+            <img src="${pageContentObj.imageSource}>
+            <div class="caption">
+              <h3>${pageContentObj.name}</h3>
+              <p><mark>Venu: </mark><strong>${pageContentObj.eventHallName}</strong></p>
+              <p class="text-right">${pageContentObj.dateOfShow}</p>
+            </div>
+          </div>`
+      })
+      allContent += `
+      </div>
+      </div>
+      </div>`
+    })
+    domEl.innerHTML = theContent[theRoute]
+  }
 
 
 	if( theRoute === 'carpools' ){  //return domEl.innerHTML = theContent[theRoute]
 
-    var carpoolsTemp = `
-    "<div class=row>
-      <div class='flights-columns'>"
+    allContent += `
+    <div class=row>
+      <div class='flights-columns'>
 
       <div class="panel panel-default carpools-content">
         <div class="panel-heading">
@@ -201,22 +122,20 @@ function renderContentTo(domEl, theRoute, theContent){
             <th>From</th>
             <th>To</th>
           </thead>
-          <tbody>
+          <tbody>`
 
-        `
     var fectchCarpoolsPromise = $.getJSON('http://apis.is/rides/samferda-drivers/').then(function(serverRes){
       console.log(serverRes);
 
-      forEach(arrivals, function(pageContentObj){
-        carpoolsTemp += `
+      forEach(arrivals, function(allContent){
+        allContent += `
             <tr>
               <td>${pageContentObj.date}</td>
               <td>${pageContentObj.from}</td>
               <td>${pageContentObj.to}</td>
-            </tr>
-        `
+            </tr>`
       })
-      carpoolsTemp += `
+      allContent += `
       </tbody>
       </table>
       </div>
@@ -228,7 +147,7 @@ function renderContentTo(domEl, theRoute, theContent){
 
 
 	if( theRoute === 'flights' ){
-    var flightTemp = `
+    allContent += `
     <div class='container-fluid flights-container'>
       <div class="panel panel-default">
         <div class="panel-body">
@@ -246,8 +165,8 @@ function renderContentTo(domEl, theRoute, theContent){
     var fetchFligthsArrivalsPromise = $.getJSON('http://apis.is/flight?language=en&type=arrivals').then(function(serverRes){
       console.log(serverRes);
 
-      forEach(arrivals, function(pageContentObj){
-        flightTemp += `
+      forEach(arrivals, function(allContent){
+        allContent += `
           <tr>
             <td>${pageContentObj.date}</td>
             <td>${pageContentObj.plannedArrival}</td>
@@ -256,7 +175,7 @@ function renderContentTo(domEl, theRoute, theContent){
           </tr>`
       })
       // flightTemp += close container divs FOR ARRIVALS
-      flightTemp += `
+      allContent += `
         </tbody>
         </div>
         </div>
@@ -271,8 +190,8 @@ function renderContentTo(domEl, theRoute, theContent){
     var fetchFlightsDeparturesPromise =  $.getJSON('http://apis.is/flight?language=en&type=departures').then(function(serverRes){
       console.log(serverRes);
 
-      forEach(departures, function(pageContentObj){
-        flightTemp += `
+      forEach(departures, function(allContent){
+        allContent += `
           <tr>
            <td>${pageContentObj.date}</td>
            <td>${pageContentObj.plannedArrival}</td>
@@ -281,7 +200,7 @@ function renderContentTo(domEl, theRoute, theContent){
           </tr>`
           // flightTemp += close container divs FOR ALL
       })
-      flightTemp += `
+      allContent += `
         </tbody>
         </div>
         </div>
@@ -296,17 +215,14 @@ function renderContentTo(domEl, theRoute, theContent){
 	// window.location.hash = ''
 }
 
-
 var controllerRouter = function(){
 	var currentRoute = window.location.hash.slice(1)
 	if(currentRoute.length === 0){ currentRoute = 'home' }
 
 	var pageContentEl = document.querySelector('.page_content')
 	renderActiveTab(currentRoute)
-	renderContentTo(pageContentEl, currentRoute, pageContentObj)
+	renderContentTo(pageContentEl, currentRoute, allContent)
 }
-
-
 
 tabsContainerEl.addEventListener('click', function(evt){
 	var clickedTabEl = evt.target
