@@ -6,41 +6,21 @@ function forEach(arr, cb){
   }
 
 }
-//
-// var fetchConcertsPromise =
-//   $.getJSON('http://apis.is/concerts').then(function(serverRes){
-//     console.log(serverRes);
-// })
-//
-// var fectchCarpoolsPromise = $.getJSON('http://apis.is/rides/samferda-drivers/').then(function(serverRes){
-//   console.log(serverRes);
-// })
-//
-// var fetchFlightsDeparturesPromise =  $.getJSON('http://apis.is/flight?language=en&type=departures').then(function(serverRes){
-//   console.log(serverRes);
-// })
-//
-// var fetchFligthsArrivalsPromise = $.getJSON('http://apis.is/flight?language=en&type=arrivals').then(function(serverRes){
-//   console.log(serverRes);
-// })
+
+
+var fetchFligthsArrivalsPromise = $.getJSON('http://apis.is/flight?language=en&type=arrivals')
+
+var fetchFlightsDeparturesPromise =  $.getJSON('http://apis.is/flight?language=en&type=departures')
+
 
 var tabsContainerEl = document.querySelector('.tabcontent__list')
-
-function renderActiveTab(theCurrentRoute){
-
-	var previousActiveTabEl = document.querySelector('[class="tabcontent__tab active"]')
-	previousActiveTabEl.classList.remove('active')
-
-	var currentActiveTabEl = document.querySelector(`[data-route="${theCurrentRoute}"]`)
-	currentActiveTabEl.classList.add('active')
-}
-
 
 
 function renderContentTo(domEl, theRoute){
   var allContent = ''
 
 	if( theRoute === 'home' ){
+
     allContent =`
     <div class="panel panel-default home-content">
       <div class="panel-heading">
@@ -67,6 +47,8 @@ function renderContentTo(domEl, theRoute){
         </tbody>
       </table>
     </div>`
+    domEl.innerHTML = allContent
+
   }
 
 
@@ -140,94 +122,88 @@ function renderContentTo(domEl, theRoute){
 
 
 	if( theRoute === 'flights' ){
-    allContent += `
-    <div class='container-fluid flights-container'>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          Flights
-        </div>
-      </div>
-      <div class='row'>
-        <div class="col-md-6 flights-columns">
-          <div class="panel panel-default flights-content">
-            <div class="panel-heading flights-panel-heading">
-              Arrivals
-            </div>
-            <table class="table">
-              <thead>
-                <th>Date</th>
-                <th>Arrival Time</th>
-                <th>Origin</th>
-                <th>Airline</th>
-              </thead>`
-    // GETJSON( FOR ARRIVALS
-    var fetchFligthsArrivalsPromise = $.getJSON('http://apis.is/flight?language=en&type=arrivals').then(function(serverRes){
-      console.log(serverRes);
 
-      forEach(serverRes.results, function(pageContentObj){
-        allContent += `
-            <tbody>
-              <tr>
-                <td>${pageContentObj.date}</td>
-                <td>${pageContentObj.plannedArrival}</td>
-                <td>${pageContentObj.from}</td>
-                <td>${pageContentObj.airline}</td>
-              </tr>
-            </tbody>`
-      })
-      // flightTemp += close container divs FOR ARRIVALS
       allContent += `
-            </table>
+      <div class='container-fluid flights-container'>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            Flights
+          </div>
+        </div>
+
+        <div class='row'>
+          <div class="col-md-6 flights-columns">
+            <div class="panel panel-default flights-content">
+              <div class="panel-heading flights-panel-heading">
+                Arrivals
+              </div>
+              <table class="table">
+                <thead>
+                  <th>Date</th>
+                  <th>Arrival Time</th>
+                  <th>Origin</th>
+                  <th>Airline</th>
+                </thead>`
+
+    $.when(fetchFligthsArrivalsPromise, fetchFlightsDeparturesPromise).then(function (serverResArrivals, serverResDepartures){
+      console.log(serverResArrivals);
+      console.log(serverResDepartures);
+
+      forEach(serverResArrivals[0].results, function(pageContentObj){
+        allContent += `
+                <tbody>
+                  <tr>
+                    <td>${pageContentObj.date}</td>
+                    <td>${pageContentObj.plannedArrival}</td>
+                    <td>${pageContentObj.from}</td>
+                    <td>${pageContentObj.airline}</td>
+                  </tr>
+                </tbody>`
+      })
+      allContent += `
+              </table>
             </div>
           </div>
         </div>`
-      domEl.innerHTML = allContent
-      // END GETJSON
-    })
-    
 
-    // GETJSON FOR DEPARTURES
-    allContent +=`
-      <div class='row'>
-        <div class="col-md-6 flights-columns">
-          <div class="panel panel-default flights-content">
-            <div class="panel-heading flights-panel-heading">
-              Departures
-            </div>
-            <table class="table">
-              <thead>
-                <th>Date</th>
-                <th>Departure Time</th>
-                <th>Destination</th>
-                <th>Airline</th>
-              </thead>`
+      allContent +=`
+        <div class='row'>
+          <div class="col-md-6 flights-columns">
+            <div class="panel panel-default flights-content">
+              <div class="panel-heading flights-panel-heading">
+                Departures
+              </div>
+              <table class="table">
+                <thead>
+                  <th>Date</th>
+                  <th>Departure Time</th>
+                  <th>Destination</th>
+                  <th>Airline</th>
+                </thead>`
 
-    var fetchFlightsDeparturesPromise =  $.getJSON('http://apis.is/flight?language=en&type=departures').then(function(serverRes){
-      console.log(serverRes);
-
-      forEach(serverRes.results, function(pageContentObj){
+      forEach(serverResDepartures[0].results, function(pageContentObj){
         allContent += `
-              <tbody>
-                <tr>
-                 <td>${pageContentObj.date}</td>
-                 <td>${pageContentObj.plannedArrival}</td>
-                 <td>${pageContentObj.to}</td>
-                 <td>${pageContentObj.airline}</td>
-                </tr>
-              </body>`
+                <tbody>
+                  <tr>
+                   <td>${pageContentObj.date}</td>
+                   <td>${pageContentObj.plannedArrival}</td>
+                   <td>${pageContentObj.to}</td>
+                   <td>${pageContentObj.airline}</td>
+                  </tr>
+                </body>`
           // flightTemp += close container divs FOR ALL
       })
-      allContent += `
-            </table>
+        allContent += `
+              </table>
             </div>
           </div>
-        </div>
-      </div>`
-      domEl.innerHTML = allContent
+        </div>`
+        domEl.innerHTML = allContent
     })
   }
 
 }
+
 
 var controllerRouter = function(){
 	var currentRoute = window.location.hash.slice(1)
@@ -237,6 +213,17 @@ var controllerRouter = function(){
 	renderActiveTab(currentRoute)
 	renderContentTo(pageContentEl, currentRoute)
 }
+
+
+function renderActiveTab(theCurrentRoute){
+
+	var previousActiveTabEl = document.querySelector('[class="tabcontent__tab active"]')
+	previousActiveTabEl.classList.remove('active')
+
+	var currentActiveTabEl = document.querySelector(`[data-route="${theCurrentRoute}"]`)
+	currentActiveTabEl.classList.add('active')
+}
+
 
 tabsContainerEl.addEventListener('click', function(evt){
   var clickedTabEl = evt.target
