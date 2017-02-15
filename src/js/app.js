@@ -57,7 +57,7 @@ function renderContentTo(domEl, theRoute){
     allContent += `
       <div class="panel panel-default">
         <div class="panel-body">
-          Concerts
+          CONCERTS
         </div>
         <div class="row">`
 
@@ -65,7 +65,9 @@ function renderContentTo(domEl, theRoute){
 
       forEach(serverRes.results, function(pageContentObj){
         allContent +=`
-          <div class="col-sm-3">
+          <div class="col-sm-3 col-md-4 thumbnail-container">
+          <div class="clearfix visible-xs-block"></div>
+
             <div class="thumbnail">
               <img src="${pageContentObj.imageSource}">
               <div class="caption">
@@ -88,7 +90,7 @@ function renderContentTo(domEl, theRoute){
 
       allContent += `
         <div class=row>
-          <div class="panel panel-default carpools-content">
+          <div class="panel panel-default">
             <div class="panel-heading">
               CARPOOLS
             </div>
@@ -127,7 +129,7 @@ function renderContentTo(domEl, theRoute){
       <div class='container-fluid flights-container'>
         <div class="panel panel-default">
           <div class="panel-body">
-            Flights
+            FLIGHTS
           </div>
         </div>
 
@@ -164,10 +166,7 @@ function renderContentTo(domEl, theRoute){
               </table>
             </div>
           </div>
-        </div>`
 
-      allContent +=`
-        <div class='row'>
           <div class="col-md-6 flights-columns">
             <div class="panel panel-default flights-content">
               <div class="panel-heading flights-panel-heading">
@@ -191,7 +190,6 @@ function renderContentTo(domEl, theRoute){
                    <td>${pageContentObj.airline}</td>
                   </tr>
                 </body>`
-          // flightTemp += close container divs FOR ALL
       })
         allContent += `
               </table>
